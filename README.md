@@ -13,6 +13,19 @@ Compilation
 
 All samples have been successfully built on GCC Toolchain under Linux
 
+  * Install GCC cross compiler for ARM Cortex-A/R/M processors
+  * Update git submodules
+```bash
+git clone https://github.com/nabilbendafi/Teensy
+cd Teensy
+git submodule update --init
+```
+  * Compile
+```bash
+cd <project>
+make
+```
+
 Upload
 ------
 
