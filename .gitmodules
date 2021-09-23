@@ -3,4 +3,4 @@
 	url = https://github.com/mbedmicro/mbed
 [submodule "freertos"]
 	path = freertos
-	url = https://github.com/cjlano/freertos
+	url = https://github.com/FreeRTOS/FreeRTOS-Kernel

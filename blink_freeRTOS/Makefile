@@ -5,13 +5,13 @@ MBED_COMMON = ../mbed/libraries/mbed/common
 CMSIS = ../mbed/libraries/mbed/targets/cmsis
 OBJECTS = src/main.o \
 	./src/FreeRTOS/Source/portable/GCC/TEENSY3_1/port.o \
-	../freertos/FreeRTOS/Source/croutine.o \
-	../freertos/FreeRTOS/Source/list.o \
-	../freertos/FreeRTOS/Source/tasks.o \
-	../freertos/FreeRTOS/Source/event_groups.o \
-	../freertos/FreeRTOS/Source/queue.o \
-	../freertos/FreeRTOS/Source/timers.o \
-	../freertos/FreeRTOS/Source/portable/MemMang/heap_2.o \
+	../freertos/croutine.o \
+	../freertos/event_groups.o \
+	../freertos/list.o \
+	../freertos/queue.o \
+	../freertos/tasks.o \
+	../freertos/timers.o \
+	../freertos/portable/MemMang/heap_2.o \
 	$(CMSIS)/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/TOOLCHAIN_GCC_ARM/startup_MK20DX256.o \
 	$(CMSIS)/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/system_MK20DX256.o
 SYS_OBJECTS = 
@@ -34,7 +34,7 @@ INCLUDE_PATHS = -I. \
 	-I../mbed/libraries/mbed/hal \
 	-I $(HAL_DIR)/TARGET_TEENSY3_1 \
 	-I./src/FreeRTOS/Source/portable/GCC/TEENSY3_1 \
-	-I../freertos/FreeRTOS/Source/include
+	-I../freertos/include
 LIBRARY_PATHS = 
 LIBRARIES = 
 LINKER_SCRIPT = $(CMSIS)/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/TOOLCHAIN_GCC_ARM/MK20DX256.ld
