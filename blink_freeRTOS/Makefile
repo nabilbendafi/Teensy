@@ -1,8 +1,7 @@
 GCC_BIN = 
 PROJECT = blink_freeRTOS
-HAL_DIR = ../mbed/libraries/mbed/targets/hal/TARGET_Freescale/TARGET_K20XX
-MBED_COMMON = ../mbed/libraries/mbed/common
-CMSIS = ../mbed/libraries/mbed/targets/cmsis
+CMSIS = ../mbed/cmsis
+TARGETS = ../mbed/targets
 OBJECTS = src/main.o \
 	./src/FreeRTOS/Source/portable/GCC/TEENSY3_1/port.o \
 	../freertos/croutine.o \
@@ -12,32 +11,18 @@ OBJECTS = src/main.o \
 	../freertos/tasks.o \
 	../freertos/timers.o \
 	../freertos/portable/MemMang/heap_2.o \
-	$(CMSIS)/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/TOOLCHAIN_GCC_ARM/startup_MK20DX256.o \
-	$(CMSIS)/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/system_MK20DX256.o
+	$(TARGETS)/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/device/TOOLCHAIN_GCC_ARM/startup_MK20DX256.o \
+	$(TARGETS)/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/device/system_MK20DX256.o
 SYS_OBJECTS = 
 INCLUDE_PATHS = -I. \
 	-I./include \
-	-I$(CMSIS) -I$(CMSIS)/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/ \
-	-I../mbed/libraries/mbed/api \
-	-I../mbed/libraries/mbed \
-	-I../mbed/libraries/mbed/targets \
-	-I../mbed/libraries/mbed/targets/cmsis \
-	-I../mbed/libraries/mbed/targets/cmsis/TARGET_Freescale \
-	-I../mbed/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20XX \
-	-I../mbed/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1 \
-	-I../mbed/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/TOOLCHAIN_GCC_ARM \
-	-I../mbed/libraries/mbed/targets/hal \
-	-I../mbed/libraries/mbed/targets/hal/TARGET_Freescale \
-	-I../mbed/libraries/mbed/targets/hal/TARGET_Freescale/TARGET_K20XX \
-	-I../mbed/libraries/mbed/targets/hal/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1 \
-	-I../mbed/libraries/mbed/api \
-	-I../mbed/libraries/mbed/hal \
-	-I $(HAL_DIR)/TARGET_TEENSY3_1 \
+	-I$(CMSIS)/TARGET_CORTEX_M \
+	-I$(TARGETS)/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/device \
 	-I./src/FreeRTOS/Source/portable/GCC/TEENSY3_1 \
 	-I../freertos/include
 LIBRARY_PATHS = 
 LIBRARIES = 
-LINKER_SCRIPT = $(CMSIS)/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/TOOLCHAIN_GCC_ARM/MK20DX256.ld
+LINKER_SCRIPT = $(TARGETS)/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/device/TOOLCHAIN_GCC_ARM/MK20DX256.ld
 
 ############################################################################### 
 AS      = $(GCC_BIN)arm-none-eabi-as
@@ -64,12 +49,11 @@ endif
 
 .PHONY: all clean lst size
 
-all: $(PROJECT).bin $(PROJECT).hex size
+all: $(LINKER_SCRIPT:.ld=.gen) $(PROJECT).bin $(PROJECT).hex size
 
 
 clean:
-	rm -f $(PROJECT).bin $(PROJECT).elf $(PROJECT).hex $(PROJECT).map $(PROJECT).lst $(OBJECTS) $(DEPS)
-
+	rm -f $(PROJECT).bin $(PROJECT).elf $(PROJECT).hex $(PROJECT).map $(PROJECT).lst $(LINKER_SCRIPT:.ld=.gen) $(OBJECTS) $(DEPS)
 
 .asm.o:
 	$(CC) $(CPU) -c -x assembler-with-cpp -o $@ $<
@@ -79,16 +63,16 @@ clean:
 	$(CC) $(CPU) -c -x assembler-with-cpp -o $@ $<
 
 .c.o:
-	$(CC)  $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu99   $(INCLUDE_PATHS) -o $@ $<
+	$(CC) $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu99  $(INCLUDE_PATHS) -o $@ $<
 
 .cpp.o:
 	$(CPP) $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu++98 -fno-rtti $(INCLUDE_PATHS) -o $@ $<
 
-
+%.gen: %.ld
+	$(CC) -E -CC -x c $< | grep -v "^#" > $@
 
 $(PROJECT).elf: $(OBJECTS) $(SYS_OBJECTS)
-	$(LD) $(LD_FLAGS) -T$(LINKER_SCRIPT) $(LIBRARY_PATHS) -o $@ $^ $(LIBRARIES) $(LD_SYS_LIBS)
-
+	$(LD) $(LD_FLAGS) -T$(LINKER_SCRIPT:.ld=.gen) $(LIBRARY_PATHS) -o $@ $^ $(LIBRARIES) $(LD_SYS_LIBS)
 
 $(PROJECT).bin: $(PROJECT).elf
 	$(OBJCOPY) -O binary $< $@

@@ -1,6 +1,6 @@
 [submodule "mbed"]
 	path = mbed
-	url = https://github.com/mbedmicro/mbed
+	url = https://github.com/ARMmbed/mbed-os
 [submodule "freertos"]
 	path = freertos
 	url = https://github.com/FreeRTOS/FreeRTOS-Kernel

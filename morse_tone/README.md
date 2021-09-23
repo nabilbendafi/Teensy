@@ -9,13 +9,13 @@ no [MBED](https://www.mbed.com/en/) SDK, no Arduino, no Teensyduino
 
 Though follows files are borrowed from [MBED](https://www.mbed.com/en/) project
 - Device specific configuration files:
-  * [system_MK20DX256.c](https://github.com/mbedmicro/mbed/blob/master/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/system_MK20DX256.c) and [system_MK20DX256.h](https://github.com/mbedmicro/mbed/blob/master/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/system_MK20DX256.h)
+  * [system_MK20DX256.c](https://github.com/ARMmbed/mbed-os/blob/mbed-os-5.15.3/targets/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/device/system_MK20DX256.c)
 - CMSIS Peripheral Access Layer header:
-  * [MK20DX256.h](https://github.com/mbedmicro/mbed/blob/master/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/MK20DX256.h)
+  * [MK20DX256.h](https://github.com/ARMmbed/mbed-os/blob/mbed-os-5.15.3/targets/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/device/MK20DX256.h)
 - Linker script : 
-  * [MK20DX256.ld](https://github.com/mbedmicro/mbed/blob/master/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/TOOLCHAIN_GCC_ARM/MK20DX256.ld)
+  * [MK20DX256.ld](https://github.com/ARMmbed/mbed-os/blob/mbed-os-5.15.3/targets/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/device/TOOLCHAIN_GCC_ARM/MK20DX256.ld)
 - Startup file for Cortex-M4 devices:
-  * [startup_MK20DX256.S](https://github.com/mbedmicro/mbed/blob/master/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/TOOLCHAIN_GCC_ARM/startup_MK20DX256.S)
+  * [startup_MK20DX256.S](https://github.com/ARMmbed/mbed-os/blob/mbed-os-5.15.3/targets/TARGET_Freescale/TARGET_K20XX/TARGET_TEENSY3_1/device/TOOLCHAIN_GCC_ARM/startup_MK20DX256.S)
 
 And Makefile is coming from [MBED](https://www.mbed.com/en/) GCC Makefile templates
 
