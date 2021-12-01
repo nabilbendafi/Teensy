@@ -5,6 +5,7 @@ A sample code collection to be used for educational purpose.
 
 - [Blink](https://github.com/nabilbendafi/Teensy/tree/master/blink)
 - [Blink (freeRTOS)](https://github.com/nabilbendafi/Teensy/tree/master/blink_freeRTOS)
+- [Blink (LiteOS)](https://github.com/nabilbendafi/Teensy/tree/master/blink_LiteOS)
 - [Morse](https://github.com/nabilbendafi/Teensy/tree/master/morse)
 - [Tone Morse](https://github.com/nabilbendafi/Teensy/tree/master/morse_tone)
 

@@ -4,3 +4,7 @@
 [submodule "freertos"]
 	path = freertos
 	url = https://github.com/FreeRTOS/FreeRTOS-Kernel
+[submodule "LiteOS"]
+	path = blink_LiteOS/LiteOS
+	url = git@github.com:nabilbendafi/LiteOS.git
+	branch = feature/Teensy31
